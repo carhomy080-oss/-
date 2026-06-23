@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل المراجعين</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #1a5f7a;
+            --secondary-color: #57c5b6;
+            --bg-color: #f5f7f8;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding: 20px 10px;
+            line-height: 1.6;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-color), #002b5b);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .search-box {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto 25px auto;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(26, 95, 122, 0.15);
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* تصميم البطاقات المنسدلة */
+        .accordion-item {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            overflow: hidden;
+            transition: transform 0.2s ease;
+            border: 1px solid #edf2f7;
+        }
+
+        .accordion-header {
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            background-color: var(--card-bg);
+            transition: background-color 0.2s ease;
+        }
+
+        .accordion-header:hover {
+            background-color: #fafbfc;
+        }
+
+        .accordion-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .accordion-title i {
+            color: var(--primary-color);
+            width: 20px;
+            text-align: center;
+        }
+
+        .icon-arrow {
+            transition: transform 0.3s ease;
+            color: var(--text-muted);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: #fcfdfd;
+            border-top: 0 solid #edf2f7;
+        }
+
+        .content-body {
+            padding: 20px;
+        }
+
+        /* التبويبات الداخلية */
+        .sub-section {
+            background: #ffffff;
+            border-right: 4px solid var(--secondary-color);
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        .sub-section h4 {
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-right: 5px;
+        }
+
+        li {
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            color: #4a5568;
+            position: relative;
+            padding-right: 15px;
+        }
+
+        li::before {
+            content: "•";
+            color: var(--secondary-color);
+            font-weight: bold;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        /* تفعيل الحالة النشطة */
+        .accordion-item.active .icon-arrow {
+            transform: rotate(180deg);
+        }
+
+        .accordion-item.active .accordion-content {
+            border-top-width: 1px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>دليل الخدمات والمعاملات الالكتروني</h1>
+        <p>مديرية سجناء الديوانية</p>
+    </div>
+
+    <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" onkeyup="filterMenu()" placeholder="ابحث عن معاملة أو مستمسك...">
+    </div>
+
+    <div class="container" id="menuContainer">
+
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-title">
+                    <i class="fa-solid fa-id-card-clip"></i>
+                    <span>معاملة التقاعد</span>
+                </div>
+                <i class="fa-solid fa-chevron-down icon-arrow"></i>
+            </div>
+            <div class="accordion-content">
+                <div class="content-body">
+                    <div class="sub-section">
+                        <h4><i class="fa-solid fa-user-check"></i> المشمول إذا كان حي</h4>
+                        <ul>
+                            <li>مستمسكات المشمول (بطاقة وطنية + بطاقة سكن في ورقة واحدة).</li>
+                            <li>صور عدد 5 خلفية بيضاء.</li>
+                            <li>كفالة.</li>
+                        </ul>
+                    </div>
+                    <div class="sub-section">
+                        <h4><i class="fa-solid fa-user-slash"></i> المشمول إذا كان متوفى</h4>
+                        <ul>
+                            <li>مستمسك للمتوفى إذا توفر أو صورة قيد.</li>
+                            <li>مستمسكات الوريث (بطاقة وطنية وبطاقة سكن في ورقة واحدة).</li>
+                            <li>صور عدد 5 للمتوفى وللوريث خلفية بيضاء.</li>
+                            <li>شهادة وفاة + قسام شرعي مصدق.</li>
+                            <li>كفالة.</li>
+                        </ul>
+                    </div>
+                    <div class="sub-section">
+                        <h4><i class="fa-solid fa-user-shield"></i> المشمول إذا كان حي ولديه وكيل</h4>
+                        <ul>
+                            <li>مستمسكات المشمول والوكيل لكل واحد على حدة (بطاقة وطنية + بطاقة سكن في ورقة واحدة).</li>
+                            <li>صور عدد 5 للمشمول وللوكيل خلفية بيضاء.</li>
+                            <li>كفالة.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-title">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                    <span>أجور العلاج</span>
+                </div>
+                <i class="fa-solid fa-chevron-down icon-arrow"></i>
+            </div>
+            <div class="accordion-content">
+                <div class="content-body">
+                    <div class="sub-section">
+                        <h4><i class="fa-solid fa-clipboard-list"></i> المتطلبات والمستمسكات</h4>
+                        <ul>
+                            <li>تقرير طبي يذكر فيه تاريخ الدخول والخروج والإجراء الجراحي بالتفصيل وتصنيف العملية (صغرى، وسطى، كبرى) مختوم وموقع (نسخة أصلية).</li>
+                            <li>قائمة حساب تفصيلية بالمبلغ المصروف (نسخة أصلية).</li>
+                            <li>مستمسكات المشمول (بطاقة وطنية).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-title">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>الأجور الدراسية والتخفيض</span>
+                </div>
+                <i class="fa-solid fa-chevron-down icon-arrow"></i>
+            </div>
+            <div class="accordion-content">
+                <div class="content-body">
+                    <div class="sub-section">
+                        <h4><i class="fa-solid fa-file-invoice-dollar"></i> الأجور الدراسية</h4>
+                        <ul>
+                            <li>تأييد استمرار بالدراسة.</li>
+                            <li>وصل قبض أصلي.</li>
+                            <li>مستمسكات المشمول.</li>
+                        </ul>
+                    </div>
+                    <div class="sub-section">
+                        <h4><i class="fa-solid fa-percent"></i> تخفيض الأجور الدراسية لذوي المشمولين</h4>
+                        <ul>
+                            <li>تقديم طلب إلكتروني على منصة أور ومن ثم الحضور إلى المديرية لإكمال الطلب.</li>
+                        </ul>
+                    </div>
+                    <div class="sub-section">
+                        <h4><i class="fa-solid fa-file-signature"></i> تعهد الأجور الدراسية</h4>
+                        <ul>
+                            <li>طلب يقدم إلى مدير المديرية.</li>
+                            <li>تأييد من الجامعة.</li>
+                            <li>مستمسكات السجين أو المعتقل أو المحتجز (بطاقة وطنية + بطاقة سكن - 2 نسخ).</li>
+                            <li>بطاقة ماستر كارد لغرض الرسم.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-title">
+                    <i class="fa-solid fa-award"></i>
+                    <span>تكريم الخريجين</span>
+                </div>
+                <i class="fa-solid fa-chevron-down icon-arrow"></i>
+            </div>
+            <div class="accordion-content">
+                <div class="content-body">
+                    <div class="sub-section">
+                        <h4><i class="fa-solid fa-file-certificate"></i> المستمسكات المطلوبة</h4>
+                        <ul>
+                            <li>أمر جامعي.</li>
+                            <li>صحة صدور باركود.</li>
+                            <li>بحث دبلوم عالي + قرص CD.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-title">
+                    <i class="fa-solid fa-user-gear"></i>
+                    <span>تحديث البيانات وتفعيل الملفات</span>
+                </div>
+                <i class="fa-solid fa-chevron-down icon-arrow"></i>
+            </div>
+            <div class="accordion-content">
+                <div class="content-body">
+                    <div class="sub-section">
+                        <h4><i class="fa-solid fa-address-card"></i> تحديث البيانات وإصدار الهوية الرقمية</h4>
+                        <ul>
+                            <li>تقديم على منصة أور.</li>
+                        </ul>
+                    </div>
+                    <div class="sub-section">
+                        <h4><i class="fa-solid fa-folder-open"></i> تفعيل الملف</h4>
+                        <ul>
+                            <li>طلب تفعيل.</li>
+                            <li>ملء استمارة.</li>
+                            <li>تجديد صورة القيد والمخاطبات.</li>
+                            <li>دفع رسم عبر الدفع الإلكتروني.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-title">
+                    <i class="fa-solid fa-file-circle-plus"></i>
+                    <span>التقديم الجديد وتعهد التسجيل</span>
+                </div>
+                <i class="fa-solid fa-chevron-down icon-arrow"></i>
+            </div>
+            <div class="accordion-content">
+                <div class="content-body">
+                    <div class="sub-section">
+                        <h4><i class="fa-solid fa-file-lines"></i> تقديم جديد</h4>
+                        <ul>
+                            <li>استمارة تقديم جديد.</li>
+                            <li>رسم عبر الدفع الإلكتروني.</li>
+                            <li>صورة قيد.</li>
+                            <li>مخاطبات.</li>
+                            <li>مستمسكات السجين أو المعتقل أو المحتجز.</li>
+                            <li>صور عدد 4.</li>
+                        </ul>
+                    </div>
+                    <div class="sub-section">
+                        <h4><i class="fa-solid fa-pen-nib"></i> تعهد التسجيل الخاص بالتقديم الجديد</h4>
+                        <ul>
+                            <li>حضور السجين أو المعتقل شخصياً.</li>
+                            <li>مستمسكات السجين أو المعتقل (البطاقة الوطنية + بطاقة السكن - 2 نسخ).</li>
+                            <li>بطاقة ماستر كارد لغرض الرسم.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-title">
+                    <i class="fa-solid fa-handshake-angle"></i>
+                    <span>شروط ومتطلبات الكفالة</span>
+                </div>
+                <i class="fa-solid fa-chevron-down icon-arrow"></i>
+            </div>
+            <div class="accordion-content">
+                <div class="content-body">
+                    <div class="sub-section">
+                        <h4><i class="fa-solid fa-circle-info"></i> معلومات الكفيل المعتمد</h4>
+                        <ul>
+                            <li>تأييد من دائرة الكفيل معنون إلى <strong>مديرية سجناء الديوانية</strong> مع بيان مقدار الراتب واستمراره في الدوام وعلى الملاك الدائم ولغرض (كفالة السيد...).</li>
+                            <li>راتب الكفيل لا يقل عن (500,000) دينار.</li>
+                            <li>مستمسكات الكفيل (البطاقة الوطنية + بطاقة السكن + هوية وظيفية - 3 نسخ).</li>
+                            <li>صحة صدور كتاب التأييد أو باركود.</li>
+                            <li>حضور الكفيل شخصياً مع جلب المستمسكات الأصلية.</li>
+                            <li>بطاقة ماستر كارد للطرف الرسمي.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <div class="accordion-title">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                    <span>المتقدمين لإعادة النظر</span>
+                </div>
+                <i class="fa-solid fa-chevron-down icon-arrow"></i>
+            </div>
+            <div class="accordion-content">
+                <div class="content-body">
+                    <div class="sub-section">
+                        <h4><i class="fa-solid fa-gavel"></i> إجراءات طلب إعادة النظر</h4>
+                        <ul>
+                            <li>يتوجب حضور مقدم طلب إعادة النظر مع (قرار رد الطلب + قرار هيئة الطعن إن وجد + قرار المحكمة الإدارية إن وجد + البطاقة الوطنية + بطاقة السكن).</li>
+                            <li>حضور الشهود مع جلب (البطاقة الوطنية + بطاقة السكن + قرار الشمول بقانون مؤسسة السجناء السياسيين).</li>
+                            <li>يوجب حضور مقدم الطلب مع الشهود معاً في موعد الاستجواب.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>مديرية سجناء الديوانية © 2026</p>
+    </footer>
+
+    <script>
+        // دالة لفتح وإغلاق التبويبات بسلاسة
+        function toggleAccordion(element) {
+            const item = element.parentElement;
+            const content = item.querySelector('.accordion-content');
+            
+            if(item.classList.contains('active')) {
+                content.style.maxHeight = null;
+                item.classList.remove('active');
+            } else {
+                // إغلاق أي نافذة مفتوحة أخرى لمنع الازدحام على الموبايل
+                document.querySelectorAll('.accordion-item').forEach(el => {
+                    el.classList.remove('active');
+                    el.querySelector('.accordion-content').style.maxHeight = null;
+                });
+                
+                item.classList.add('active');
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        }
+
+        // دالة البحث الذكي لتصفية المعاملات والمستمسكات فوراً
+        function filterMenu() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let items = document.querySelectorAll('.accordion-item');
+
+            items.forEach(item => {
+                let text = item.textContent.toLowerCase();
+                if(text.includes(input)) {
+                    item.style.display = "block";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
